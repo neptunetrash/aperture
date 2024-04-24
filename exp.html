@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numerical Aperture Virtual Experiment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            margin-top: 30px;
+        }
+        p {
+            margin-top: 15px;
+        }
+        #canvasContainer {
+            position: relative;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+        #lightSource {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: yellow;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Numerical Aperture Virtual Experiment</h1>
+        <p>Adjust the parameters below to observe how they affect the numerical aperture:</p>
+        <label for="refractive-index">Refractive Index:</label>
+        <input type="number" id="refractive-index" min="1" max="2" step="0.1" value="1.5"><br><br>
+        <label for="core-diameter">Core Diameter (μm):</label>
+        <input type="number" id="core-diameter" min="5" max="50" step="5" value="10"><br><br>
+        <button onclick="calculateNA()">Calculate Numerical Aperture</button><br><br>
+        <p id="result"></p>
+        <div id="canvasContainer">
+            <canvas id="fiberCanvas" width="400" height="300"></canvas>
+            <div id="lightSource"></div>
+        </div>
+    </div>
+
+    <script>
+        function calculateNA() {
+            // Get input values
+            var refractiveIndex = parseFloat(document.getElementById('refractive-index').value);
+            var coreDiameter = parseFloat(document.getElementById('core-diameter').value);
+
+            // Calculate numerical aperture
+            var numericalAperture = Math.sqrt(Math.pow(refractiveIndex, 2) - 1) * coreDiameter / 2;
+
+            // Display result
+            document.getElementById('result').innerHTML = 'Numerical Aperture: ' + numericalAperture.toFixed(2);
+
+            // Update light source position based on numerical aperture
+            var lightSource = document.getElementById('lightSource');
+            var canvasContainer = document.getElementById('canvasContainer');
+            lightSource.style.left = canvasContainer.offsetWidth / 2 + (numericalAperture / coreDiameter) * canvasContainer.offsetWidth / 2 + 'px';
+            lightSource.style.top = canvasContainer.offsetHeight / 2 + 'px';
+        }
+    </script>
+</body>
+</html>
