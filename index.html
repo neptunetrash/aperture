@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numerical Aperture Virtual Lab</title>
+    <title>Numerical Aperture Virtual Experiment</title>
     <style>
         /* Add your CSS styles here */
         /* For simplicity, you can add styles directly within the <style> tag or link an external CSS file */
@@ -11,72 +11,48 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
             text-align: center;
-        }
-        nav {
-            background-color: #f4f4f4;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            text-decoration: none;
-            color: #333;
-            padding: 5px 10px;
-        }
-        nav a:hover {
-            background-color: #ccc;
         }
         .container {
             max-width: 800px;
             margin: auto;
             padding: 20px;
         }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        h2 {
+            margin-top: 30px;
+        }
+        p {
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Numerical Aperture Virtual Lab</h1>
-    </header>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#experiment">Experiment</a>
-        <a href="#exercises">Exercises</a>
-        <a href="#resources">Resources</a>
-    </nav>
     <div class="container">
-        <section id="about">
-            <h2>About Numerical Aperture</h2>
-            <p>Insert your educational content about numerical aperture here.</p>
-        </section>
+        <h1>Numerical Aperture Virtual Experiment</h1>
         <section id="experiment">
             <h2>Virtual Experiment</h2>
-            <p>Insert your virtual experiment or simulation here.</p>
-        </section>
-        <section id="exercises">
-            <h2>Guided Exercises</h2>
-            <p>Insert guided exercises for users to perform here.</p>
-        </section>
-        <section id="resources">
-            <h2>Additional Resources</h2>
-            <p>Insert links to additional resources here.</p>
+            <p>Adjust the parameters below to observe how they affect the numerical aperture:</p>
+            <label for="refractive-index">Refractive Index:</label>
+            <input type="number" id="refractive-index" min="1" max="2" step="0.1" value="1.5"><br><br>
+            <label for="core-diameter">Core Diameter (μm):</label>
+            <input type="number" id="core-diameter" min="5" max="50" step="5" value="10"><br><br>
+            <button onclick="calculateNA()">Calculate Numerical Aperture</button><br><br>
+            <p id="result"></p>
         </section>
     </div>
-    <footer>
-        <p>&copy; 2024 Numerical Aperture Virtual Lab</p>
-    </footer>
+
+    <script>
+        function calculateNA() {
+            // Get input values
+            var refractiveIndex = parseFloat(document.getElementById('refractive-index').value);
+            var coreDiameter = parseFloat(document.getElementById('core-diameter').value);
+
+            // Calculate numerical aperture
+            var numericalAperture = Math.sqrt(Math.pow(refractiveIndex, 2) - 1) * coreDiameter / 2;
+
+            // Display result
+            document.getElementById('result').innerHTML = 'Numerical Aperture: ' + numericalAperture.toFixed(2);
+        }
+    </script>
 </body>
 </html>
